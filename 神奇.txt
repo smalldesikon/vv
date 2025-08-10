@@ -1,0 +1,47 @@
+local msg = Instance.new("Message",workspace)
+msg.Text = "欢迎使用司空脚本"
+wait(1.8)
+msg:Destroy()
+
+msg = Instance.new("Message",workspace)
+msg.Text = "作者名字"
+wait(1.8)
+msg:Destroy()
+
+msg = Instance.new("Message",workspace)
+msg.Text = "smalldohfn"
+wait(1.8)
+msg:Destroy()
+
+msg = Instance.new("Message",workspace)
+msg.Text = "司空脚本群号"
+wait(1.8)
+msg:Destroy()
+
+msg = Instance.new("Message",workspace)
+msg.Text = "其实没有😁"
+wait(1.8)
+msg:Destroy()
+
+msg = Instance.new("Message",workspace)
+msg.Text = "这是我弄的假脚本，哈哈哈被骗了吧😂😂😂"
+wait(1.8)
+msg:Destroy()
+
+msg = Instance.new("Message",workspace)
+msg.Text = "roblox名字也是假的😂"
+wait(1.8)
+msg:Destroy()
+
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://4760592831"
+sound.Volume = 1
+sound.Looped = true
+sound.Parent = workspace
+
+msg = Instance.new("Message",workspace)
+msg.Text = "😂😂😂😂😂😂😂老傻子"
+sound:Play()
+wait(1)
+
+while true do end
