@@ -40,7 +40,7 @@ sound.Looped = true
 sound.Parent = workspace
 
 msg = Instance.new("Message",workspace)
-msg.Text = "😂😂😂😂😂😂😂老傻子"
+msg.Text = "😂👎"
 sound:Play()
 wait(1)
 
