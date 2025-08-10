@@ -25,12 +25,12 @@ msg:Destroy()
 
 msg = Instance.new("Message",workspace)
 msg.Text = "这是我弄的假脚本，哈哈哈被骗了吧😂😂😂"
-wait(1.8)
+wait(0.6)
 msg:Destroy()
 
 msg = Instance.new("Message",workspace)
 msg.Text = "roblox名字也是假的😂"
-wait(1.8)
+wait(0.6)
 msg:Destroy()
 
 local sound = Instance.new("Sound")
