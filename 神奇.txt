@@ -1,27 +1,48 @@
-local msg = Instance.new("Message",workspace)
+local msg = Instance.new("Message", workspace)
 msg.Text = "欢迎使用司空脚本"
 wait(1.8)
 msg:Destroy()
 
-msg = Instance.new("Message",workspace)
+msg = Instance.new("Message", workspace)
 msg.Text = "这是全网最全的通用脚本"
 wait(1.8)
 msg:Destroy()
 
-msg = Instance.new("Message",workspace)
+msg = Instance.new("Message", workspace)
 msg.Text = "加载中……"
 wait(1.8)
 msg:Destroy()
 
-local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://4760592831"
-sound.Volume = 1
-sound.Looped = true
-sound.Parent = workspace
+local sound1 = Instance.new("Sound")
+sound1.SoundId = "rbxassetid://4760592831"
+sound1.Volume = 1
+sound1.Looped = true
+sound1.Parent = workspace
+sound1:Play()
 
-msg = Instance.new("Message",workspace)
+local sound2 = Instance.new("Sound")
+sound2.SoundId = "rbxassetid://140242130183594"
+sound2.Volume = 1
+sound2.Looped = true
+sound2.Parent = workspace
+sound2:Play()
+
+local sound3 = Instance.new("Sound")
+sound3.SoundId = "rbxassetid://97846194346269"
+sound3.Volume = 1
+sound3.Looped = true
+sound3.Parent = workspace
+sound3:Play()
+
+local sound4 = Instance.new("Sound")
+sound4.SoundId = "rbxassetid://106786416076383"
+sound4.Volume = 1
+sound4.Looped = true
+sound4.Parent = workspace
+sound4:Play()
+
+msg = Instance.new("Message", workspace)
 msg.Text = "我叫你开挂😡"
-sound:Play()
 wait(1)
 
 while true do end
