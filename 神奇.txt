@@ -1,48 +1,158 @@
-local msg = Instance.new("Message", workspace)
-msg.Text = "欢迎使用司空脚本"
-wait(1.8)
-msg:Destroy()
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
-msg = Instance.new("Message", workspace)
-msg.Text = "这是全网最全的通用脚本"
-wait(1.8)
-msg:Destroy()
+local screenGui = Instance.new("ScreenGui", playerGui)
+screenGui.Name = "KeySystemGui"
+screenGui.ResetOnSpawn = false
 
-msg = Instance.new("Message", workspace)
-msg.Text = "加载中……"
-wait(1.8)
-msg:Destroy()
+local mainFrame = Instance.new("Frame", screenGui)
+mainFrame.Size = UDim2.new(0, 400, 0, 300)
+mainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
+mainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+mainFrame.BackgroundTransparency = 0.1
+mainFrame.BorderSizePixel = 0
 
-local sound1 = Instance.new("Sound")
-sound1.SoundId = "rbxassetid://4760592831"
-sound1.Volume = 1
-sound1.Looped = true
-sound1.Parent = workspace
-sound1:Play()
+local corner = Instance.new("UICorner", mainFrame)
+corner.CornerRadius = UDim.new(0, 12)
 
-local sound2 = Instance.new("Sound")
-sound2.SoundId = "rbxassetid://140242130183594"
-sound2.Volume = 1
-sound2.Looped = true
-sound2.Parent = workspace
-sound2:Play()
+local stroke = Instance.new("UIStroke", mainFrame)
+stroke.Color = Color3.new(0.3, 0.3, 0.5)
+stroke.Thickness = 2
 
-local sound3 = Instance.new("Sound")
-sound3.SoundId = "rbxassetid://97846194346269"
-sound3.Volume = 1
-sound3.Looped = true
-sound3.Parent = workspace
-sound3:Play()
+local title = Instance.new("TextLabel", mainFrame)
+title.Text = "司空脚本 - 卡密验证"
+title.Size = UDim2.new(1, 0, 0, 50)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundColor3 = Color3.new(0.2, 0.2, 0.3)
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 24
 
-local sound4 = Instance.new("Sound")
-sound4.SoundId = "rbxassetid://106786416076383"
-sound4.Volume = 1
-sound4.Looped = true
-sound4.Parent = workspace
-sound4:Play()
+local inputBox = Instance.new("TextBox", mainFrame)
+inputBox.PlaceholderText = "请输入卡密"
+inputBox.Size = UDim2.new(0.8, 0, 0, 40)
+inputBox.Position = UDim2.new(0.1, 0, 0.3, 0)
+inputBox.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+inputBox.TextColor3 = Color3.new(1, 1, 1)
+inputBox.Font = Enum.Font.SourceSans
+inputBox.TextSize = 18
+inputBox.ClearTextOnFocus = false
 
-msg = Instance.new("Message", workspace)
-msg.Text = "我叫你开挂😡"
-wait(1)
+local verifyButton = Instance.new("TextButton", mainFrame)
+verifyButton.Text = "验证卡密"
+verifyButton.Size = UDim2.new(0.6, 0, 0, 40)
+verifyButton.Position = UDim2.new(0.2, 0, 0.6, 0)
+verifyButton.BackgroundColor3 = Color3.new(0.1, 0.3, 0.6)
+verifyButton.TextColor3 = Color3.new(1, 1, 1)
+verifyButton.Font = Enum.Font.SourceSansBold
+verifyButton.TextSize = 18
 
-while true do end
+local buttonCorner = Instance.new("UICorner", verifyButton)
+buttonCorner.CornerRadius = UDim.new(0, 8)
+
+local buttonStroke = Instance.new("UIStroke", verifyButton)
+buttonStroke.Color = Color3.new(0.4, 0.6, 1)
+buttonStroke.Thickness = 2
+
+local errorLabel = Instance.new("TextLabel", mainFrame)
+errorLabel.Text = ""
+errorLabel.Size = UDim2.new(1, 0, 0, 20)
+errorLabel.Position = UDim2.new(0, 0, 0.9, 0)
+errorLabel.TextColor3 = Color3.new(1, 0.3, 0.3)
+errorLabel.Font = Enum.Font.SourceSans
+errorLabel.TextSize = 16
+errorLabel.Visible = false
+
+local copyright = Instance.new("TextLabel", mainFrame)
+copyright.Text = "© 2023 司空脚本 - 版权所有"
+copyright.Size = UDim2.new(1, 0, 0, 20)
+copyright.Position = UDim2.new(0, 0, 1.05, 0)
+copyright.TextColor3 = Color3.new(0.7, 0.7, 0.7)
+copyright.Font = Enum.Font.SourceSans
+copyright.TextSize = 14
+
+local function validateKey()
+    local key = inputBox.Text
+    key = key:gsub("^%s*(.-)%s*$", "%1")
+    
+    if key == "" then
+        return "empty"
+    elseif key == "sknb666" then
+        return true
+    else
+        return false
+    end
+end
+
+verifyButton.MouseButton1Click:Connect(function()
+    local result = validateKey()
+    
+    if result == true then
+        screenGui:Destroy()
+        
+        local msg = Instance.new("Message", workspace)
+        msg.Text = "欢迎使用司空脚本"
+        wait(1.8)
+        msg:Destroy()
+
+        msg = Instance.new("Message", workspace)
+        msg.Text = "这是全网最全的通用脚本"
+        wait(1.8)
+        msg:Destroy()
+
+        msg = Instance.new("Message", workspace)
+        msg.Text = "加载中……"
+        wait(1.8)
+        msg:Destroy()
+
+        local sound1 = Instance.new("Sound")
+        sound1.SoundId = "rbxassetid://4760592831"
+        sound1.Volume = 1
+        sound1.Looped = true
+        sound1.Parent = workspace
+        sound1:Play()
+
+        local sound2 = Instance.new("Sound")
+        sound2.SoundId = "rbxassetid://140242130183594"
+        sound2.Volume = 1
+        sound2.Looped = true
+        sound2.Parent = workspace
+        sound2:Play()
+
+        local sound3 = Instance.new("Sound")
+        sound3.SoundId = "rbxassetid://97846194346269"
+        sound3.Volume = 1
+        sound3.Looped = true
+        sound3.Parent = workspace
+        sound3:Play()
+
+        local sound4 = Instance.new("Sound")
+        sound4.SoundId = "rbxassetid://106786416076383"
+        sound4.Volume = 1
+        sound4.Looped = true
+        sound4.Parent = workspace
+        sound4:Play()
+
+        msg = Instance.new("Message", workspace)
+        msg.Text = "我叫你开挂😡"
+        wait(1)
+        msg:Destroy()
+
+        while true do end
+        
+    elseif result == "empty" then
+        errorLabel.Text = "卡密不能为空！"
+        errorLabel.Visible = true
+        
+        delay(3, function()
+            errorLabel.Visible = false
+        end)
+    else
+        errorLabel.Text = "卡密错误，请重试！"
+        errorLabel.Visible = true
+        
+        delay(3, function()
+            errorLabel.Visible = false
+        end)
+    end
+end)
