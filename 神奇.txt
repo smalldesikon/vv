@@ -71,17 +71,14 @@ copyright.TextColor3 = Color3.new(0.7, 0.7, 0.7)
 copyright.Font = Enum.Font.SourceSans
 copyright.TextSize = 14
 
--- 添加关闭UI的功能
 local function closeUI()
     screenGui:Destroy()
 end
 
--- 监听输入框的文本变化
 inputBox:GetPropertyChangedSignal("Text"):Connect(function()
     local text = inputBox.Text
-    text = text:gsub("^%s*(.-)%s*$", "%1") -- 去除首尾空格
+    text = text:gsub("^%s*(.-)%s*$", "%1")
     
-    -- 如果输入"关闭UI"（不区分大小写），则关闭UI
     if string.lower(text) == "关闭ui" or text == "关闭UI" then
         closeUI()
     end
@@ -168,4 +165,7 @@ verifyButton.MouseButton1Click:Connect(function()
         errorLabel.Visible = true
         
         delay(3, function()
-          
+          errorLabel.Visible = false
+        end)
+    end
+end)
