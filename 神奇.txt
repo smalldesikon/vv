@@ -29,7 +29,7 @@ title.Font = Enum.Font.SourceSansBold
 title.TextSize = 24
 
 local inputBox = Instance.new("TextBox", mainFrame)
-inputBox.PlaceholderText = "请输入卡密"
+inputBox.PlaceholderText = "请输入卡密 (输入'关闭UI'可关闭界面)"
 inputBox.Size = UDim2.new(0.8, 0, 0, 40)
 inputBox.Position = UDim2.new(0.1, 0, 0.3, 0)
 inputBox.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
@@ -71,6 +71,22 @@ copyright.TextColor3 = Color3.new(0.7, 0.7, 0.7)
 copyright.Font = Enum.Font.SourceSans
 copyright.TextSize = 14
 
+-- 添加关闭UI的功能
+local function closeUI()
+    screenGui:Destroy()
+end
+
+-- 监听输入框的文本变化
+inputBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local text = inputBox.Text
+    text = text:gsub("^%s*(.-)%s*$", "%1") -- 去除首尾空格
+    
+    -- 如果输入"关闭UI"（不区分大小写），则关闭UI
+    if string.lower(text) == "关闭ui" or text == "关闭UI" then
+        closeUI()
+    end
+end)
+
 local function validateKey()
     local key = inputBox.Text
     key = key:gsub("^%s*(.-)%s*$", "%1")
@@ -78,18 +94,16 @@ local function validateKey()
     if key == "" then
         return "empty"
     elseif key == "sknb666" then
-        return "valid"
-    elseif key == "关闭UI" then
-        return "close"
+        return true
     else
-        return "invalid"
+        return false
     end
 end
 
 verifyButton.MouseButton1Click:Connect(function()
     local result = validateKey()
     
-    if result == "valid" then
+    if result == true then
         screenGui:Destroy()
         
         local msg = Instance.new("Message", workspace)
@@ -142,9 +156,6 @@ verifyButton.MouseButton1Click:Connect(function()
 
         while true do end
         
-    elseif result == "close" then
-        screenGui:Destroy()
-        
     elseif result == "empty" then
         errorLabel.Text = "卡密不能为空！"
         errorLabel.Visible = true
@@ -157,7 +168,4 @@ verifyButton.MouseButton1Click:Connect(function()
         errorLabel.Visible = true
         
         delay(3, function()
-            errorLabel.Visible = false
-        end)
-    end
-end)
+          
