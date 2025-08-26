@@ -78,16 +78,18 @@ local function validateKey()
     if key == "" then
         return "empty"
     elseif key == "sknb666" then
-        return true
+        return "valid"
+    elseif key == "关闭UI" then
+        return "close"
     else
-        return false
+        return "invalid"
     end
 end
 
 verifyButton.MouseButton1Click:Connect(function()
     local result = validateKey()
     
-    if result == true then
+    if result == "valid" then
         screenGui:Destroy()
         
         local msg = Instance.new("Message", workspace)
@@ -139,6 +141,9 @@ verifyButton.MouseButton1Click:Connect(function()
         msg:Destroy()
 
         while true do end
+        
+    elseif result == "close" then
+        screenGui:Destroy()
         
     elseif result == "empty" then
         errorLabel.Text = "卡密不能为空！"
