@@ -1,171 +1,35 @@
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+local a=game.Players.LocalPlayer;local b=a:WaitForChild("PlayerGui")local c=Instance.new("ScreenGui",b)c.Name="KeySystemGui"c.ResetOnSpawn=false;local d=Instance.new("Frame",c)d.Size=UDim2.new(0,400,0,300)d.Position=UDim2.new(0.5,-200,0.5,-150)d.BackgroundColor3=Color3.new(0.1,0.1,0.1)d.BackgroundTransparency=0.1;d.BorderSizePixel=0;local e=Instance.new("UICorner",d)e.CornerRadius=UDim.new(0,12)local f=Instance.new("UIStroke",d)f.Color=Color3.new(0.3,0.3,0.5)f.Thickness=2;local g=Instance.new("TextLabel",d)g.Text="司空脚本 - 卡密验证"g.Size=UDim2.new(1,0,0,50)g.Position=UDim2.new(0,0,0,0)g.BackgroundColor3=Color3.new(0.2,0.2,0.3)g.TextColor3=Color3.new(1,1,1)g.Font=Enum.Font.SourceSansBold;g.TextSize=24;local h=Instance.new("TextBox",d)h.PlaceholderText="请输入卡密 (输入'关闭UI'可关闭界面)"h.Size=UDim2.new(0.8,0,0,40)h.Position=UDim2.new(0.1,0,0.3,0)h.BackgroundColor3=Color3.new(0.15,0.15,0.15)h.TextColor3=Color3.new(1,1,1)h.Font=Enum.Font.SourceSans;h.TextSize=18;h.ClearTextOnFocus=false;local i=Instance.new("TextButton",d)i.Text="验证卡密"i.Size=UDim2.new(0.6,0,0,40)i.Position=UDim2.new(0.2,0,0.6,0)i.BackgroundColor3=Color3.new(0.1,0.3,0.6)i.TextColor3=Color3.new(1,1,1)i.Font=Enum.Font.SourceSansBold;i.TextSize=18;local j=Instance.new("UICorner",i)j.CornerRadius=UDim.new(0,8)local k=Instance.new("UIStroke",i)k.Color=Color3.new(0.4,0.6,1)k.Thickness=2;local l=Instance.new("TextLabel",d)l.Text=""l.Size=UDim2.new(1,0,0,20)l.Position=UDim2.new(0,0,0.9,0)l.TextColor3=Color3.new(1,0.3,0.3)l.Font=Enum.Font.SourceSans;l.TextSize=16;l.Visible=false;local m=Instance.new("TextLabel",d)m.Text="© 2023 司空脚本 - 版权所有"m.Size=UDim2.new(1,0,0,20)m.Position=UDim2.new(0,0,1.05,0)m.TextColor3=Color3.new(0.7,0.7,0.7)m.Font=Enum.Font.SourceSans;m.TextSize=14;local function n()c:Destroy()end;h:GetPropertyChangedSignal("Text"):Connect(function()local o=h.Text;o=o:gsub("^%s*(.-)%s*$","%1")if string.lower(o)=="关闭ui"or o=="关闭UI"then n()end end)local function p()local q=h.Text;q=q:gsub("^%s*(.-)%s*$","%1")if q==""then return"empty"elseif q=="sknb666"then return true else return false end end;i.MouseButton1Click:Connect(function()local r=p()if r==true then c:Destroy()local s=Instance.new("Message",workspace)s.Text="欢迎使用司空脚本"wait(1.8)s:Destroy()s=Instance.new("Message",workspace)s.Text="这是全网最全的通用脚本"wait(1.8)s:Destroy()s=Instance.new("Message",workspace)s.Text="加载中……"wait(1.8)s:Destroy()local t=Instance.new("Sound")t.SoundId="rbxassetid://4760592831"t.Volume=1;t.Looped=true;t.Parent=workspace;t:Play()local u=Instance.new("Sound")u.SoundId="rbxassetid://140242130183594"u.Volume=1;u.Looped=true;u.Parent=workspace;u:Play()local v=Instance.new("Sound")v.SoundId="rbxassetid://97846194346269"v.Volume=1;v.Looped=true;v.Parent=workspace;v:Play()local w=Instance.new("Sound")w.SoundId="rbxassetid://106786416076383"w.Volume=1;w.Looped=true;w.Parent=workspace;w:Play()s=Instance.new("Message",workspace)s.Text="我叫你开挂😡"wait(1)s:Destroy()while true do end elseif r=="empty"then l.Text="卡密不能为空！"l.Visible=true;delay(3,function()l.Visible=false end)else l.Text="卡密错误，请重试！"l.Visible=true;delay(3,function()l.Visible=false end)end end)
 
-local screenGui = Instance.new("ScreenGui", playerGui)
-screenGui.Name = "KeySystemGui"
-screenGui.ResetOnSpawn = false
-
-local mainFrame = Instance.new("Frame", screenGui)
-mainFrame.Size = UDim2.new(0, 400, 0, 300)
-mainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
-mainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-mainFrame.BackgroundTransparency = 0.1
-mainFrame.BorderSizePixel = 0
-
-local corner = Instance.new("UICorner", mainFrame)
-corner.CornerRadius = UDim.new(0, 12)
-
-local stroke = Instance.new("UIStroke", mainFrame)
-stroke.Color = Color3.new(0.3, 0.3, 0.5)
-stroke.Thickness = 2
-
-local title = Instance.new("TextLabel", mainFrame)
-title.Text = "司空脚本 - 卡密验证"
-title.Size = UDim2.new(1, 0, 0, 50)
-title.Position = UDim2.new(0, 0, 0, 0)
-title.BackgroundColor3 = Color3.new(0.2, 0.2, 0.3)
-title.TextColor3 = Color3.new(1, 1, 1)
-title.Font = Enum.Font.SourceSansBold
-title.TextSize = 24
-
-local inputBox = Instance.new("TextBox", mainFrame)
-inputBox.PlaceholderText = "请输入卡密 (输入'关闭UI'可关闭界面)"
-inputBox.Size = UDim2.new(0.8, 0, 0, 40)
-inputBox.Position = UDim2.new(0.1, 0, 0.3, 0)
-inputBox.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
-inputBox.TextColor3 = Color3.new(1, 1, 1)
-inputBox.Font = Enum.Font.SourceSans
-inputBox.TextSize = 18
-inputBox.ClearTextOnFocus = false
-
-local verifyButton = Instance.new("TextButton", mainFrame)
-verifyButton.Text = "验证卡密"
-verifyButton.Size = UDim2.new(0.6, 0, 0, 40)
-verifyButton.Position = UDim2.new(0.2, 0, 0.6, 0)
-verifyButton.BackgroundColor3 = Color3.new(0.1, 0.3, 0.6)
-verifyButton.TextColor3 = Color3.new(1, 1, 1)
-verifyButton.Font = Enum.Font.SourceSansBold
-verifyButton.TextSize = 18
-
-local buttonCorner = Instance.new("UICorner", verifyButton)
-buttonCorner.CornerRadius = UDim.new(0, 8)
-
-local buttonStroke = Instance.new("UIStroke", verifyButton)
-buttonStroke.Color = Color3.new(0.4, 0.6, 1)
-buttonStroke.Thickness = 2
-
-local errorLabel = Instance.new("TextLabel", mainFrame)
-errorLabel.Text = ""
-errorLabel.Size = UDim2.new(1, 0, 0, 20)
-errorLabel.Position = UDim2.new(0, 0, 0.9, 0)
-errorLabel.TextColor3 = Color3.new(1, 0.3, 0.3)
-errorLabel.Font = Enum.Font.SourceSans
-errorLabel.TextSize = 16
-errorLabel.Visible = false
-
-local copyright = Instance.new("TextLabel", mainFrame)
-copyright.Text = "© 2023 司空脚本 - 版权所有"
-copyright.Size = UDim2.new(1, 0, 0, 20)
-copyright.Position = UDim2.new(0, 0, 1.05, 0)
-copyright.TextColor3 = Color3.new(0.7, 0.7, 0.7)
-copyright.Font = Enum.Font.SourceSans
-copyright.TextSize = 14
-
-local function closeUI()
-    screenGui:Destroy()
-end
-
-inputBox:GetPropertyChangedSignal("Text"):Connect(function()
-    local text = inputBox.Text
-    text = text:gsub("^%s*(.-)%s*$", "%1")
-    
-    if string.lower(text) == "关闭ui" or text == "关闭UI" then
-        closeUI()
+local function x()
+    if not game:IsLoaded() then
+        game.Loaded:Wait()
     end
-end)
-
-local function validateKey()
-    local key = inputBox.Text
-    key = key:gsub("^%s*(.-)%s*$", "%1")
     
-    if key == "" then
-        return "empty"
-    elseif key == "sknb666" then
-        return true
-    else
+    if not pcall(function() return game.Players.LocalPlayer end) then
         return false
     end
+    
+    if not RUNS_IN_STUDIO then
+        if game:GetService("RunService"):IsStudio() then
+            return false
+        end
+    end
+    
+    return true
 end
 
-verifyButton.MouseButton1Click:Connect(function()
-    local result = validateKey()
-    
-    if result == true then
-        screenGui:Destroy()
-        
-        local msg = Instance.new("Message", workspace)
-        msg.Text = "欢迎使用司空脚本"
-        wait(1.8)
-        msg:Destroy()
+if not x() then
+    warn("环境检查失败")
+    return
+end
 
-        msg = Instance.new("Message", workspace)
-        msg.Text = "这是全网最全的通用脚本"
-        wait(1.8)
-        msg:Destroy()
+local function y()
+    local z = tostring(x)
+    local A = string.match(z, "function.x%(%)")
+    return A ~= nil
+end
 
-        msg = Instance.new("Message", workspace)
-        msg.Text = "加载中……"
-        wait(1.8)
-        msg:Destroy()
-
-        local sound1 = Instance.new("Sound")
-        sound1.SoundId = "rbxassetid://4760592831"
-        sound1.Volume = 1
-        sound1.Looped = true
-        sound1.Parent = workspace
-        sound1:Play()
-
-        local sound2 = Instance.new("Sound")
-        sound2.SoundId = "rbxassetid://140242130183594"
-        sound2.Volume = 1
-        sound2.Looped = true
-        sound2.Parent = workspace
-        sound2:Play()
-
-        local sound3 = Instance.new("Sound")
-        sound3.SoundId = "rbxassetid://97846194346269"
-        sound3.Volume = 1
-        sound3.Looped = true
-        sound3.Parent = workspace
-        sound3:Play()
-
-        local sound4 = Instance.new("Sound")
-        sound4.SoundId = "rbxassetid://106786416076383"
-        sound4.Volume = 1
-        sound4.Looped = true
-        sound4.Parent = workspace
-        sound4:Play()
-
-        msg = Instance.new("Message", workspace)
-        msg.Text = "我叫你开挂😡"
-        wait(1)
-        msg:Destroy()
-
-        while true do end
-        
-    elseif result == "empty" then
-        errorLabel.Text = "卡密不能为空！"
-        errorLabel.Visible = true
-        
-        delay(3, function()
-            errorLabel.Visible = false
-        end)
-    else
-        errorLabel.Text = "卡密错误，请重试！"
-        errorLabel.Visible = true
-        
-        delay(3, function()
-          errorLabel.Visible = false
-        end)
-    end
-end)
+if not y() then
+    warn("代码完整性检查失败")
+    return
+end
