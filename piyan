@@ -1,0 +1,138 @@
+local Translations = {
+   ["Home"] = " 主页",
+    ["Main"] = "主要",
+    ["Rebirths"] = "重生",
+    ["Killer"] = "杀手",
+    ["Crystal"] = "水晶",
+    ["Status"] = "状态",
+    ["Miscellaneous"] = "杂项",
+    ["LocalPlayer"] = "本地玩家",
+    ["Set WalkSpeed"] = "设置移动速度",
+    ["Enable WalkSpeed"] = "启用移动速度",
+    ["Infinite Jump"] = "无限跳跃",
+    ["Size"] = "尺寸",
+    ["Size Amount"] = "尺寸数值",
+    ["Speed Hub X | Version : 4.0.4"] = "皮炎汉化",
+    ["Auto Farm On Select Gym"] = "自动刷选定健身房",
+    ["Farming General"] = "常规刷经验",
+    ["Auto Farm Weight"] = "自动刷举重",
+    ["Auto Farm Pushups"] = "自动刷俯卧撑",
+    ["Auto Farm Situps"] = "自动刷仰卧起坐",
+    ["Auto Farm Punch"] = "自动刷拳击",
+    ["Auto Claim Gift Free"] = "自动领取免费礼物",
+    ["Lock Position"] = "锁定位置",
+    ["Walk On Water"] = "水上行走",
+    ["Anti-Knockback"] = "防击退",
+    ["Faster Tool"] = "更快的工具",
+    ["Set Faster Weight"] = "设置更快的举重",
+    ["Set Faster Pushups"] = "设置更快的俯卧撑",
+    ["Set Faster Situps"] = "设置更快的仰卧起坐",
+    ["Set Faster Punch"] = "设置更快出拳",
+    ["Brawl"] = "乱斗",
+    ["Auto Join Brawl"] = "自动加入乱斗",
+    ["Auto Win Brawl"] = "自动赢得乱斗",
+    ["Auto Kill Evil Karma"] = "自动击杀邪恶业力",
+    ["Auto Kill Good Karma"] = "自动击杀善良业力",
+    ["Farming Kill Player"] = "刷取击杀玩家",
+    ["Select Player"] = "选择玩家",
+    ["Refresh Select Player"] = "刷新选择玩家",
+    ["Farming Kill"] = "刷取击杀",
+    ["Select Whitelist"] = "选择白名单",
+    ["Refresh Select Whitelist"] = "刷新选择白名单",
+    ["Choose Mode Kill"] = "选择击杀模式",
+    ["Auto Kill"] = "自动击杀",
+    ["Auto Kill Player"] = "自动击杀玩家",
+    ["Spectate Player"] = "观战玩家",
+    [" Anti-Teleport If Rebirthed [BETA]"] = "重生后防传送 [测试版]",
+
+    
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(
