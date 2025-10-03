@@ -148,5 +148,6 @@ Button(Tab6, "xa", function()
 end)
 
 Button(Tab6, "殺脚本", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/FengYu-3/FengYu/refs/heads/Feng/QQ1926190957"))()
+        FengYu_HUB = "殺脚本"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/FengYu-3/FengYu/refs/heads/Feng/QQ1926190957"))()
 end)
