@@ -60,7 +60,7 @@ Button(Tab1, "司空同款飞行", function()
     end)
 end)
 
-Button(Tab1, "移动速度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, function(a) 
+Slider(Tab1, "移动速度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, function(a) 
     pcall(function()
         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = a
     end)
