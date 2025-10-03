@@ -147,6 +147,6 @@ Button(Tab6, "xa", function()
         loadstring(game:HttpGet("https://raw.gitcode.com/Xingtaiduan/Scripts/raw/main/Loader.lua"))()
 end)
 
-Button(Tab6, "TX", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/JsYb666/TX-Free-YYDS/refs/heads/main/FREE-TX-TEAM"))()
-e
+Button(Tab6, "殺脚本", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FengYu-3/FengYu/refs/heads/Feng/QQ1926190957"))()
+end)
