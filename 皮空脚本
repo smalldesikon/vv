@@ -55,7 +55,6 @@ local Tab3 = Tab("ohio")
 local Tab4 = Tab("被遗弃")
 local Tab5 = Tab("99夜")
 local Tab6 = Tab("各大脚本")
-local Tab7 = Tab("死铁轨")
 
 
 Button(Tab1, "司空同款飞行", function() 
@@ -151,5 +150,3 @@ end)
 Button(Tab6, "殺脚本", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/FengYu-3/FengYu/refs/heads/Feng/QQ1926190957"))()
 end)
-
-Button(Tab6
