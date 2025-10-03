@@ -147,3 +147,25 @@ Button(Tab6, "皮脚本", function()
         getgenv().XiaoPi="皮脚本QQ群1002100032" loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/QQ1002100032-Roblox-Pi-script.lua"))()
     end)
 end)
+
+Button(Tab6, "雪花脚本", function() 
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/54863r/XH.HOW/refs/heads/main/XH.hox"))()
+    end)
+end)
+
+Button(Tab6, "xk", function() 
+    pcall(function()
+        loadstring(game:HttpGet(('https://github.com/devslopo/DVES/raw/main/XK%20Hub')))()
+    end)
+end)
+
+Button(Tab6, "xa", function() 
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.gitcode.com/Xingtaiduan/Scripts/raw/main/Loader.lua"))()
+    end)
+end)
+
+Button(Tab6, "TX", function() 
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/JsYb666/T
