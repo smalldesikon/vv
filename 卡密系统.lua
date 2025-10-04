@@ -129,7 +129,6 @@ local function executeScript()
         Text = "卡密验证成功，正在开启脚本",
         Duration = 5
     })
-    game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
 end
 
 TextButton.MouseButton1Click:Connect(function()
