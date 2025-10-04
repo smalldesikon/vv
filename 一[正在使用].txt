@@ -1,0 +1,158 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+local Window = WindUI:CreateWindow({
+    Title = "皮空脚本              司空皮炎联合制作xianing⁧ 柳叶协助",
+    Icon = "door-open",
+    Author = "",
+    Folder = "CloudHub",
+    Size = UDim2.fromOffset(560, 360),
+    Transparent = true,
+    Theme = "Dark",
+    User = {
+        Enabled = true,
+        Callback = function() 
+            print("clicked") 
+        end,
+        Anonymous = true
+    },
+})
+
+Window:EditOpenButton({
+    Title = "打开皮空脚本",
+    Icon = "monitor",
+    CornerRadius = UDim.new(0,16),
+    StrokeThickness = 2,
+    Color = ColorSequence.new(
+        Color3.fromHex("FF0F7B"),
+        Color3.fromHex("F89B29")
+    ),
+    Draggable = true,
+})
+
+function Tab(a)
+    return Window:Tab({Title = a, Icon = "eye"})
+end
+
+function Button(a, b, c)
+    return a:Button({Title = b, Callback = c})
+end
+
+function Toggle(a, b, c, d)
+    return a:Toggle({Title = b, Value = c, Callback = d})
+end
+
+function Slider(a, b, c, d, e, f)
+    return a:Slider({Title = b, Step = 1, Value = {Min = c, Max = d, Default = e}, Callback = f})
+end
+
+function Dropdown(a, b, c, d, e)
+    return a:Dropdown({Title = b, Values = c, Value = d, Callback = e})
+end
+
+local Tab1 = Tab("通用")
+local Tab2 = Tab("力量传奇")
+local Tab3 = Tab("ohio")
+local Tab4 = Tab("被遗弃")
+local Tab5 = Tab("99夜")
+
+Button(Tab1, "司空同款飞行", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+end)
+
+Button(Tab1, "踏空行走", function() 
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Float'))()
+end)
+
+Button(Tab1, "无头加短腿美化", function() 
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Permanent-Headless-And-korblox-Script-4140"))()
+end)
+
+Toggle(Tab1, "夜视", false, function(a)
+        if a then
+            game.Lighting.Ambient = Color3.new(1, 1, 1)
+        else
+            game.Lighting.Ambient = Color3.new(0, 0, 0)
+        end
+end)
+
+Slider(Tab1, "移动速度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, function(a) 
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = a
+end)
+
+Slider(Tab1, "跳跃高度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.JumpPower, function(a) 
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = a
+end)
+
+Slider(Tab1, "重力设置", -50, 400, workspace.Gravity, function(a) 
+        workspace.Gravity = a
+end)
+
+Button(Tab1, "打飞机r6", function() 
+        loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))()
+end)
+
+Button(Tab1, "打飞机r15", function() 
+        loadstring(game:HttpGet("https://pastefy.app/YZoglOyJ/raw"))()
+end)
+
+Button(Tab1, "点我打开皮空脚本二", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/c43cc7847ac9846287fad439930ac41b2d65dbe0/%E7%9A%AE%E7%A9%BA%E8%84%9A%E6%9C%AC(%E4%BA%8C)"))()
+end)
+
+Button(Tab2, "皮炎汉化1(卡密自动复制)", function() 
+        setclipboard("iblameaabis")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/66036dec6920219d6146991ff4e3e2877c05e7aa/%E4%BC%A0%E5%A5%87%E8%84%9A%E6%9C%AC%E6%B1%89%E5%8C%96.txt"))()
+end)
+
+Button(Tab2, "皮炎汉化2(无卡密)", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/358545698555/roblox-/refs/heads/main/%E5%8A%9B%E9%87%8F%E4%BC%A0%E5%A5%87"))()
+end)
+
+Button(Tab2, "静默破解[皮炎汉化]", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/1eab6c39306f06abf61c13771da42bec95f5292d/%E9%9D%99%E9%BB%98"))()
+end)
+
+Button(Tab2, "自动吃蛋", function() 
+        loadstring(game:HttpGet("https://raw.github.com/114514541883484/Zephyr-wave/main/Legend%20of%20Strength.lua"))()
+end)
+
+Button(Tab2, "切换宠物", function() 
+        loadstring(game:HttpGet("https://raw.github.com/f20i30s40h/Crack/main/Cracked-ShuiJiaoScript.lua"))("力量传奇切换宠物")
+end)
+
+Button(Tab3, "笑川Ohio", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SUNXIAOCHUAN886/XiaoChuan/refs/heads/main/ohio.lua"))()
+end)
+
+Button(Tab3, "snow", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/aaajackmiller-hub/Fang/main/snow%20Ohio.lua", true))()
+end)
+
+Button(Tab4, "翻跟头(卡密自动复制)", function() 
+        setclipboard("BOBBYHUBKEYWJJEBEKEI1827272")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BobJunior1/ForsakenBoi/refs/heads/main/B0bbyHub"))()
+end)
+
+Button(Tab4, "被遗弃kenny汉化", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/Fartsaken.txt"))()
+end)
+
+Button(Tab5, "op级99夜(中文)", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/hdjsjjdgrhj/script-hub/refs/heads/main/99Nights"))()
+end)
+
+Button(Tab5, "99虚空汉化(Kenny汉化)", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/99%E5%A4%9C%E8%99%9A%E7%A9%BA.txt"))()
+end)
+
+Button(Tab5, "xa的99夜", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Games/森林中的99夜.lua"))()
+end)
+
+Button(Tab5, "kenny汉化99夜", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/DARK.lua"))()
+end)
+
+Button(Tab5, "99夜[疑似可以伤害队友]", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/358545698555/roblox-/refs/heads/main/%E5%8F%AF%E6%9D%80%E9%98%9F%E5%8F%8B99%E5%A4%9C"))()
+end)
