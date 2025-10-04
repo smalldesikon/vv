@@ -18,7 +18,7 @@ local Window = WindUI:CreateWindow({
 })
 
 Window:EditOpenButton({
-    Title = "打开皮空脚本",
+    Title = "打开皮空脚本2️⃣",
     Icon = "monitor",
     CornerRadius = UDim.new(0,16),
     StrokeThickness = 2,
@@ -52,6 +52,7 @@ end
 local Tab1 = Tab("死铁轨")
 local Tab2 = Tab("战争大亨")
 local Tab3 = Tab("恼红")
+local Tab4 = Tab("极速传奇")
 
 Button(Tab1, "自动刷债券(无卡密)", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/thantzy/thanhub/refs/heads/main/thanv1"))()
@@ -98,4 +99,8 @@ end)
 
 Button(Tab3, "彩虹上天", function() 
         loadstring(game:HttpGet("https://pastefy.app/PkYWvKhM/raw"))()
+end)
+
+Button(Tab4, "皮炎汉化1", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/4dd28ba2906f96b8a0c49986d0e5dc912ad32393/%E6%9E%81%E9%80%9F"))()
 end)
