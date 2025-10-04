@@ -1,0 +1,132 @@
+local AuroraUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/AuroraUI/Aurora/main/dist/aurora.lua"))()
+
+local Window = AuroraUI:CreateWindow({
+    Title = "极光脚本",
+    Icon = "sparkles",
+    Author = "Aurora Team",
+    Folder = "AuroraHub",
+    Size = UDim2.fromOffset(580, 380),
+    Transparent = true,
+    Theme = "Aurora",
+    User = {
+        Enabled = true,
+        Callback = function() 
+            print("用户信息点击")
+        end,
+        Anonymous = false
+    },
+})
+
+Window:EditOpenButton({
+    Title = "打开极光",
+    Icon = "zap",
+    CornerRadius = UDim.new(0, 20),
+    StrokeThickness = 2.5,
+    Color = ColorSequence.new(
+        Color3.fromHex("00C9FF"),
+        Color3.fromHex("92FE9D")
+    ),
+    Draggable = true,
+})
+
+function Tab(a, b)
+    return Window:Tab({Title = a, Icon = b or "circle"})
+end
+
+function Button(a, b, c, d)
+    return a:Button({Title = b, Description = d, Callback = c})
+end
+
+function Toggle(a, b, c, d, e)
+    return a:Toggle({Title = b, Description = e, Value = c, Callback = d})
+end
+
+function Slider(a, b, c, d, e, f, g)
+    return a:Slider({Title = b, Description = g, Step = 1, Value = {Min = c, Max = d, Default = e}, Callback = f})
+end
+
+function Dropdown(a, b, c, d, e, f)
+    return a:Dropdown({Title = b, Description = f, Values = c, Value = d, Callback = e})
+end
+
+function Section(a, b)
+    return a:Section({Title = b})
+end
+
+-- 创建标签页
+local MainTab = Tab("主要功能", "home")
+local PlayerTab = Tab("玩家选项", "user")
+local WorldTab = Tab("世界设置", "globe")
+local VisualTab = Tab("视觉效果", "eye")
+
+-- 主标签页内容
+local MainSection = Section(MainTab, "核心功能")
+Button(MainSection, "加载所有脚本", function()
+    print("正在加载所有脚本...")
+end, "一键加载所有可用脚本")
+
+Toggle(MainSection, "自动执行", false, function(value)
+    print("自动执行:", value)
+end, "游戏开始时自动执行脚本")
+
+local UtilitySection = Section(MainTab, "实用工具")
+Button(UtilitySection, "清理环境", function()
+    print("正在清理游戏环境...")
+end, "清除不必要的游戏对象")
+
+Slider(UtilitySection, "执行速度", 1, 10, 5, function(value)
+    print("执行速度设置为:", value)
+end, "调整脚本执行速度")
+
+-- 玩家标签页内容
+local PlayerSection = Section(PlayerTab, "玩家属性")
+Slider(PlayerSection, "移动速度", 16, 200, 16, function(value)
+    print("移动速度:", value)
+end, "调整玩家移动速度")
+
+Slider(PlayerSection, "跳跃高度", 50, 200, 50, function(value)
+    print("跳跃高度:", value)
+end, "调整玩家跳跃高度")
+
+Toggle(PlayerSection, "无限跳跃", false, function(value)
+    print("无限跳跃:", value)
+end, "允许无限次跳跃")
+
+local CharacterSection = Section(PlayerTab, "角色设置")
+Dropdown(CharacterSection, "角色外观", {"默认", "透明", "发光", "彩虹"}, "默认", function(value)
+    print("角色外观:", value)
+end, "更改角色视觉效果")
+
+-- 世界标签页内容
+local WorldSection = Section(WorldTab, "世界控制")
+Toggle(WorldSection, "移除障碍", false, function(value)
+    print("移除障碍:", value)
+end, "移除游戏中的障碍物")
+
+Toggle(WorldSection, "穿墙模式", false, function(value)
+    print("穿墙模式:", value)
+end, "允许穿过墙壁")
+
+local GravitySection = Section(WorldTab, "物理设置")
+Slider(WorldSection, "重力强度", 0, 196, 196, function(value)
+    print("重力强度:", value)
+end, "调整世界重力")
+
+-- 视觉效果标签页内容
+local VisualSection = Section(VisualTab, "界面设置")
+Toggle(VisualSection, "界面动画", true, function(value)
+    print("界面动画:", value)
+end, "启用/禁用界面动画效果")
+
+Dropdown(VisualSection, "主题颜色", {"极光蓝", "森林绿", "日落橙", "星空紫"}, "极光蓝", function(value)
+    print("主题颜色:", value)
+end, "更改界面主题颜色")
+
+local ESPsection = Section(VisualTab, "透视功能")
+Toggle(ESPsection, "玩家透视", false, function(value)
+    print("玩家透视:", value)
+end, "显示其他玩家位置")
+
+Toggle(ESPsection, "物品透视", false, function(value)
+    print("物品透视:", value)
+end, "显示重要物品位置")
