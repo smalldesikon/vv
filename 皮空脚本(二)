@@ -1,0 +1,101 @@
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+
+local Window = WindUI:CreateWindow({
+    Title = "皮空脚本              司空皮炎联合制作",
+    Icon = "door-open",
+    Author = "",
+    Folder = "CloudHub",
+    Size = UDim2.fromOffset(560, 360),
+    Transparent = true,
+    Theme = "Dark",
+    User = {
+        Enabled = true,
+        Callback = function() 
+            print("clicked") 
+        end,
+        Anonymous = true
+    },
+})
+
+Window:EditOpenButton({
+    Title = "打开皮空脚本",
+    Icon = "monitor",
+    CornerRadius = UDim.new(0,16),
+    StrokeThickness = 2,
+    Color = ColorSequence.new(
+        Color3.fromHex("FF0F7B"),
+        Color3.fromHex("F89B29")
+    ),
+    Draggable = true,
+})
+
+function Tab(a)
+    return Window:Tab({Title = a, Icon = "eye"})
+end
+
+function Button(a, b, c)
+    return a:Button({Title = b, Callback = c})
+end
+
+function Toggle(a, b, c, d)
+    return a:Toggle({Title = b, Value = c, Callback = d})
+end
+
+function Slider(a, b, c, d, e, f)
+    return a:Slider({Title = b, Step = 1, Value = {Min = c, Max = d, Default = e}, Callback = f})
+end
+
+function Dropdown(a, b, c, d, e)
+    return a:Dropdown({Title = b, Values = c, Value = d, Callback = e})
+end
+
+local Tab1 = Tab("死铁轨")
+local Tab2 = Tab("战争大亨")
+local Tab3 = Tab("恼红")
+
+Button(Tab1, "自动刷债券(无卡密)", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/thantzy/thanhub/refs/heads/main/thanv1"))()
+end)
+
+Button(Tab1, "中文", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/iopjklbnmsss/SansHubScript/refs/heads/main/SansHub"))()
+end)
+
+Button(Tab1, "mtaskh汉化", function() 
+        loadstring(game:HttpGet("https://github.com/mtaskhh/script/raw/refs/heads/main/moonmt.lua"))()
+end)
+
+Button(Tab1, "死骷髅", function() 
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/hungquan99/SkullHub/main/loader.lua'))()
+end)
+
+Button(Tab1, "红叶子(汉化)", function() 
+        loadstring(game:HttpGet("https://pastefy.app/IetM6XoV/raw"))()
+end)
+
+Button(Tab1, "红叶子(无汉化)", function() 
+        script_key="PASTEKEYHERE"; (loadstring or load)(game:HttpGet("https://getnative.cc/script/loader"))()
+end)
+
+Button(Tab2, "中文", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ohiojjj/78/main/.github/workflows/Protected_5786868815098093.lua"))()
+end)
+
+Button(Tab2, "中文(疑似含有无限子弹)", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/XOTRXONY/Wartycoon/main/ZZDH.lua"))()
+end)
+
+Button(Tab2, "简洁版", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraIsMe/ToraIsMe/main/0wartycoon", true))()
+end)
+
+Button(Tab3, "绿色隐身", function() 
+        loadstring(game:HttpGet("https://pastefy.app/3FtY6q1p/raw"))()
+end)
+Button(Tab3, "孤月汉化隐身", function() 
+        loadstring(game:HttpGet("https://pastebin.com/raw/5TGc1r2E"))()
+end)
+
+Button(Tab3, "彩虹上天", function() 
+        loadstring(game:HttpGet("https://pastefy.app/PkYWvKhM/raw"))()
+end)
