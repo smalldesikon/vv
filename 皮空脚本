@@ -18,7 +18,7 @@ local Window = WindUI:CreateWindow({
 })
 
 Window:EditOpenButton({
-    Title = "打开皮空脚本",
+    Title = "打开皮空脚本1️⃣",
     Icon = "monitor",
     CornerRadius = UDim.new(0,16),
     StrokeThickness = 2,
@@ -147,4 +147,4 @@ Button(Tab5, "kenny汉化99夜", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/DARK.lua"))()
 end)
 
-Button(Tab6, "皮脚本"
+Button(Tab6, "皮
