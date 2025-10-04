@@ -101,6 +101,22 @@ Button(Tab3, "彩虹上天", function()
         loadstring(game:HttpGet("https://pastefy.app/PkYWvKhM/raw"))()
 end)
 
+Button(Tab3, "防击打[偷走自动退出]", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/342423114514/-/refs/heads/main/%E6%9C%9D%E9%9C%9E%E6%B1%89%E8%84%91%E7%BA%A2%E8%84%9A%E6%9C%AC.txt"))()
+end)
+
+Button(Tab3, "自动进入无人服务器", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/yoursvexyyy/VEX-OP/refs/heads/main/free%20server%20finder"))()
+end)
+
 Button(Tab4, "皮炎汉化1", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/4dd28ba2906f96b8a0c49986d0e5dc912ad32393/%E6%9E%81%E9%80%9F"))()
+end)
+
+Button(Tab4, "顺便找的", function() 
+        loadstring(game:HttpGet("https://pastebin.com/raw/cwCdNqds"))()
+end)
+
+Button(Tab4, "疑似最强[因为混淆要等20多秒]", function() 
+        loadstring(game:HttpGet("https://pastebin.com/raw/tUfDyUfz"))()
 end)
