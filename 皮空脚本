@@ -112,6 +112,14 @@ Button(Tab2, "静默破解[皮炎汉化]", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/1eab6c39306f06abf61c13771da42bec95f5292d/%E9%9D%99%E9%BB%98"))()
 end)
 
+Button(Tab2, "自动吃蛋", function() 
+        loadstring(game:HttpGet("https://raw.github.com/114514541883484/Zephyr-wave/main/Legend%20of%20Strength.lua"))()
+end)
+
+Button(Tab2, "切换宠物", function() 
+        loadstring(game:HttpGet("https://raw.github.com/f20i30s40h/Crack/main/Cracked-ShuiJiaoScript.lua"))("力量传奇切换宠物")
+end)
+
 Button(Tab3, "笑川Ohio", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/SUNXIAOCHUAN886/XiaoChuan/refs/heads/main/ohio.lua"))()
 end)
@@ -138,9 +146,4 @@ Button(Tab5, "99虚空汉化(Kenny汉化)", function()
 end)
 
 Button(Tab5, "xa的99夜", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Games/森林中的99夜.lua"))()
-end)
-
-Button(Tab5, "kenny汉化99夜", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/DARK.lua"))()
-end)
+        loadstrin
