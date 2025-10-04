@@ -77,6 +77,51 @@ Toggle(Tab1, "夜视", false, function(a)
         end
 end)
 
+Toggle(Tab1, "ESP", false, function(state)
+    pcall(function()
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer and player.Character then
+                if state then
+                    local highlight = Instance.new("Highlight")
+                    highlight.Parent = player.Character
+                    highlight.Adornee = player.Character
+
+                    local billboard = Instance.new("BillboardGui")
+                    billboard.Parent = player.Character
+                    billboard.Adornee = player.Character
+                    billboard.Size = UDim2.new(0, 100, 0, 100)
+                    billboard.StudsOffset = Vector3.new(0, 3, 0)
+                    billboard.AlwaysOnTop = true
+
+                    local nameLabel = Instance.new("TextLabel")
+                    nameLabel.Parent = billboard
+                    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+                    nameLabel.BackgroundTransparency = 1
+                    nameLabel.Text = player.Name
+                    nameLabel.TextColor3 = Color3.new(1, 1, 1)
+                    nameLabel.TextStrokeTransparency = 0.5
+                    nameLabel.TextScaled = true
+
+                    local circle = Instance.new("ImageLabel")
+                    circle.Parent = billboard
+                    circle.Size = UDim2.new(0, 50, 0, 50)
+                    circle.Position = UDim2.new(0.5, 0, 0.5, 0)
+                    circle.AnchorPoint = Vector2.new(0.5, 0.5)
+                    circle.BackgroundTransparency = 1
+                    circle.Image = "rbxassetid://2200552246"
+                else
+                    if player.Character:FindFirstChildOfClass("Highlight") then
+                        player.Character:FindFirstChildOfClass("Highlight"):Destroy()
+                    end
+                    if player.Character:FindFirstChildOfClass("BillboardGui") then
+                        player.Character:FindFirstChildOfClass("BillboardGui"):Destroy()
+                    end
+                end
+            end
+        end
+    end)
+end)
+
 Slider(Tab1, "移动速度", 1, 600, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, function(a) 
         game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = a
 end)
@@ -98,53 +143,4 @@ Button(Tab1, "打飞机r15", function()
 end)
 
 Button(Tab1, "点我打开皮空脚本二", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/c43cc7847ac9846287fad439930ac41b2d65dbe0/%E7%9A%AE%E7%A9%BA%E8%84%9A%E6%9C%AC(%E4%BA%8C)"))()
-end)
-
-Button(Tab2, "皮炎汉化1(卡密自动复制)", function() 
-        setclipboard("iblameaabis")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/66036dec6920219d6146991ff4e3e2877c05e7aa/%E4%BC%A0%E5%A5%87%E8%84%9A%E6%9C%AC%E6%B1%89%E5%8C%96.txt"))()
-end)
-
-Button(Tab2, "皮炎汉化2(无卡密)", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/358545698555/roblox-/refs/heads/main/%E5%8A%9B%E9%87%8F%E4%BC%A0%E5%A5%87"))()
-end)
-
-Button(Tab2, "静默破解[皮炎汉化]", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/1eab6c39306f06abf61c13771da42bec95f5292d/%E9%9D%99%E9%BB%98"))()
-end)
-
-Button(Tab3, "笑川Ohio", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/SUNXIAOCHUAN886/XiaoChuan/refs/heads/main/ohio.lua"))()
-end)
-
-Button(Tab3, "snow", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/aaajackmiller-hub/Fang/main/snow%20Ohio.lua", true))()
-end)
-
-Button(Tab4, "翻跟头(卡密自动复制)", function() 
-        setclipboard("BOBBYHUBKEYWJJEBEKEI1827272")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/BobJunior1/ForsakenBoi/refs/heads/main/B0bbyHub"))()
-end)
-
-Button(Tab4, "被遗弃kenny汉化", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/Fartsaken.txt"))()
-end)
-
-Button(Tab5, "op级99夜(中文)", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/hdjsjjdgrhj/script-hub/refs/heads/main/99Nights"))()
-end)
-
-Button(Tab5, "99虚空汉化(Kenny汉化)", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/99%E5%A4%9C%E8%99%9A%E7%A9%BA.txt"))()
-end)
-
-Button(Tab5, "xa的99夜", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Games/森林中的99夜.lua"))()
-end)
-
-Button(Tab5, "kenny汉化99夜", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/DARK.lua"))()
-end)
-
-Button(Tab6, "皮
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/c43cc7847ac9846287fad439930ac41b2d65dbe0/%E7%9A%AE%E7%A9%BA%E8%84%9A%
