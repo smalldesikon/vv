@@ -1,0 +1,177 @@
+local Translations = {
+   ["Local Player"] = "本地玩家",
+    ["Racing"] = "赛车",
+    ["Trading"] = "交易",
+    ["Others"] = "其他",
+    ["Start Collecting Orb"] = "开始收集宝珠",
+    ["Secondary Auto Farming"] = "次要自动耕作",
+    ["Orb"] = "宝珠",
+    ["Select An Orb"] = "选择一个宝珠",
+    ["Select Options"] = "选择选项",
+    ["City"] = "城市",
+    ["Select A City"] = "选择一个城市",
+    ["Rate"] = "速率",
+    ["Collect Rate"] = "收集速率",
+    ["Collect Orb"] = "收集宝珠",
+    ["Auto Farm"] = "自动耕作",
+    ["Primary Auto Farming"] = "主要自动耕作",
+    ["Snow City"] = "冰雪之城",
+    ["Magma City"] = "熔岩之城",
+    ["Legends Highway"] = "传奇公路",
+    ["Speed Jungle"] = "极速丛林",
+    ["Outer Space"] = "外太空",
+    ["Speed Desert"] = "极速荒漠",
+    ["Yellow Orb"] = "黄色宝珠",
+    ["Blue Orb"] = "蓝色宝珠",
+    ["Orange Orb"] = "橙色宝珠",
+    ["Red Orb"] = "红色宝珠",
+    ["Ethereal Orb"] = "虚体宝珠",
+    ["Gem"] = "宝石",
+    ["Internal Gem"] = "内部宝石",
+    ["World Locations"] = "世界位置",
+    ["Teleport Locations"] = "传送地点",
+    ["Choose a location to teleport"] ="选择一个地点进行传送",
+    ["Teleport"] = "传送",
+    ["World Locations"] = "世界地点",
+    ["Teleport Locations"] = "传送地点",
+    ["Choose a location to teleport"] ="选择一个地点传送",
+    ["Select Options"] = "选择选项",
+    ["City"] = "城市",
+    ["Snow City"] = "雪地城市",
+    ["Magma City"] = "岩浆城市",
+    ["Legends Highway"] = "传奇公路",
+    ["Speed Jungle"] = "极速丛林",
+    ["Game"] = "游戏",
+    ["Basic Pets"] = "基础宠物",
+    ["Pet"] = "宠物",
+    ["Select A Pet"] = "选择一只宠物",
+    ["Hatch Pet"] = "孵化宠物",
+    ["Advanced Pets"] = "进阶宠物",
+    ["Rare Pets"] = "稀有宠物",
+    ["Epic Pets"] = "史诗宠物",
+    ["Trail"] = "轨迹",
+    ["1-5"] = "1-5",
+    ["Hatch Trail"] = "孵化轨迹",
+    ["B Trails"] = "B 轨迹",
+    ["1st Trail"] = "第一条轨迹",
+    ["2nd Trail"] = "第二条轨迹",
+    ["Third Trail"] = "第三条轨迹",
+    ["Fourth Trail"] = "第四条轨迹",
+    ["Fifth Trail"] = "第五条轨",
+
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+--这下面填加载外部脚本
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EncryptedV10/Roblox-Scripts/refs/heads/main/Legends%20Of%20Speed.lua"))()
+
+
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
