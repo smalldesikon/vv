@@ -110,6 +110,10 @@ Button(Tab2, "皮炎汉化2(无卡密)", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/358545698555/roblox-/refs/heads/main/%E5%8A%9B%E9%87%8F%E4%BC%A0%E5%A5%87"))()
 end)
 
+Button(Tab2, "静默破解[皮炎汉化]", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/1eab6c39306f06abf61c13771da42bec95f5292d/%E9%9D%99%E9%BB%98"))()
+end)
+
 Button(Tab3, "笑川Ohio", function() 
         loadstring(game:HttpGet("https://raw.githubusercontent.com/SUNXIAOCHUAN886/XiaoChuan/refs/heads/main/ohio.lua"))()
 end)
@@ -121,6 +125,10 @@ end)
 Button(Tab4, "翻跟头(卡密自动复制)", function() 
         setclipboard("BOBBYHUBKEYWJJEBEKEI1827272")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/BobJunior1/ForsakenBoi/refs/heads/main/B0bbyHub"))()
+end)
+
+Button(Tab4, "被遗弃kenny汉化", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/Fartsaken.txt"))()
 end)
 
 Button(Tab5, "op级99夜(中文)", function() 
@@ -135,14 +143,8 @@ Button(Tab5, "xa的99夜", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Games/森林中的99夜.lua"))()
 end)
 
-Button(Tab6, "皮脚本", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/xiaopi77/xiaopi77/main/QQ1002100032-Roblox-Pi-script.lua"))()
+Button(Tab5, "kenny汉化99夜", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ke9460394-dot/ugik/refs/heads/main/DARK.lua"))()
 end)
 
-Button(Tab6, "雪花脚本", function() 
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/54863r/XH.HOW/refs/heads/main/XH.hox"))()
-end)
-
-Button(Tab6, "xk", function() 
-        loadstring(game:HttpGet(('https://github.com/devslopo/DVES/raw/main/XK%20Hub')))()
-end)
+Button(Tab6, "皮脚本"
