@@ -1,7 +1,7 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local Window = WindUI:CreateWindow({
-    Title = "皮空脚本              司空皮炎联合制作",
+    Title = "皮空脚本              司空皮炎联合制作xianing⁧ 柳叶协助",
     Icon = "door-open",
     Author = "",
     Folder = "CloudHub",
