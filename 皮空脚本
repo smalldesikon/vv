@@ -97,6 +97,10 @@ Button(Tab1, "打飞机r15", function()
         loadstring(game:HttpGet("https://pastefy.app/YZoglOyJ/raw"))()
 end)
 
+Button(Tab1, "点我打开皮空脚本二", function() 
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/c43cc7847ac9846287fad439930ac41b2d65dbe0/%E7%9A%AE%E7%A9%BA%E8%84%9A%E6%9C%AC(%E4%BA%8C)"))()
+end)
+
 Button(Tab2, "皮炎汉化1(卡密自动复制)", function() 
         setclipboard("iblameaabis")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/66036dec6920219d6146991ff4e3e2877c05e7aa/%E4%BC%A0%E5%A5%87%E8%84%9A%E6%9C%AC%E6%B1%89%E5%8C%96.txt"))()
@@ -141,13 +145,4 @@ end)
 
 Button(Tab6, "xk", function() 
         loadstring(game:HttpGet(('https://github.com/devslopo/DVES/raw/main/XK%20Hub')))()
-end)
-
-Button(Tab6, "xa", function() 
-        loadstring(game:HttpGet("https://raw.gitcode.com/Xingtaiduan/Scripts/raw/main/Loader.lua"))()
-end)
-
-Button(Tab6, "殺脚本", function() 
-        FengYu_HUB = "殺脚本"
-loadstring(game:HttpGet("https://raw.githubusercontent.com/FengYu-3/FengYu/refs/heads/Feng/QQ1926190957"))()
 end)
