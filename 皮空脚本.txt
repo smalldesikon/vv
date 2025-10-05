@@ -1,0 +1,4 @@
+无法使用loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/main/%E7%9A%AE%E7%A9%BA%E8%84%9A%E6%9C%AC"))()
+二(可以使用)loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/c43cc7847ac9846287fad439930ac41b2d65dbe0/%E7%9A%AE%E7%A9%BA%E8%84%9A%E6%9C%AC(%E4%BA%8C)"))()
+一(可以使用)loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/b2bd45f6287c91035ecf608a6cc6e931901db660/%E4%B8%80%5B%E6%AD%A3%E5%9C%A8%E4%BD%BF%E7%94%A8%5D.txt"))()
+卡密验证(可以使用)loadstring(game:HttpGet("https://raw.githubusercontent.com/smalldesikon/vv/b84307fa84c3c2182787aa70687248513b02d161/%E5%8D%A1%E5%AF%86%E7%B3%BB%E7%BB%9F.lua"))()
