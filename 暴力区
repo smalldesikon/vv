@@ -1,0 +1,313 @@
+if _G.XION_Script_Loaded then
+    _G.XION_Execution_Count = (_G.XION_Execution_Count or 0) + 1
+    return
+end
+
+_G.XION_Script_Loaded = true
+_G.XION_Execution_Count = 1
+
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+local Window = WindUI:CreateWindow({
+    Title = "XION自动防护",
+    Icon = "shield",
+    Author = "司空制作",
+    Folder = "CloudHub",
+    Size = UDim2.fromOffset(560, 400),
+    Transparent = true,
+    User = {
+        Enabled = true,
+        Callback = function() 
+            print("clicked") 
+        end,
+        Anonymous = true
+    },
+})
+
+Window:EditOpenButton(
+    {
+        Title = "防护系统",
+        Icon = "shield",
+        CornerRadius = UDim.new(0, 13),
+        StrokeThickness = 4,
+        Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(186, 19, 19)),ColorSequenceKeypoint.new(1, Color3.fromRGB(8, 60, 129))}),
+        Draggable = true
+    }
+)
+
+function Tab(a)
+    return Window:Tab({Title = a, Icon = "shield"})
+end
+
+function Button(a, b, c)
+    return a:Button({Title = b, Callback = c})
+end
+
+function Toggle(a, b, c, d)
+    return a:Toggle({Title = b, Value = c, Callback = d})
+end
+
+function Input(a, b, c, d, e, f)
+    return a:Input({
+        Title = b,
+        Desc = c or "",
+        Value = d or "",
+        Placeholder = e or "",
+        Callback = f
+    })
+end
+
+-- 创建自动防护标签页
+local AutoProtectTab = Tab("自动防护")
+
+-- 自动防护功能变量
+local autoProtectEnabled = false
+local protectConnection = nil
+local lastClickTime = 0
+
+-- 需要检测的动作ID列表
+local protectedAnimations = {
+    "92362656727126",
+    "108276889954601", 
+    "126497551689502",
+    "126626340093785",
+    "121571390309073",
+    "119752564209631"
+}
+
+-- 防护设置
+local protectionSettings = {
+    detectionRange = 50,
+    clickDelay = 0.1,
+    cooldown = 0.5,  -- 点击冷却时间
+    debugMode = false
+}
+
+-- 虚拟鼠标点击函数（修复版）
+function virtualClick()
+    local currentTime = tick()
+    
+    -- 检查冷却时间
+    if currentTime - lastClickTime < protectionSettings.cooldown then
+        return
+    end
+    
+    lastClickTime = currentTime
+    
+    -- 使用VirtualInputManager模拟鼠标点击
+    local virtualInputManager = game:GetService("VirtualInputManager")
+    
+    -- 鼠标按下
+    virtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+    
+    -- 短暂延迟
+    wait(protectionSettings.clickDelay)
+    
+    -- 鼠标释放
+    virtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+    
+    if protectionSettings.debugMode then
+        print("[" .. os.date("%X") .. "] 检测到受保护动作，已自动点击鼠标左键")
+    end
+end
+
+-- 改进的动画检测函数
+function checkForProtectedAnimations()
+    local localPlayer = game.Players.LocalPlayer
+    if not localPlayer or not localPlayer.Character then
+        return false
+    end
+    
+    local localRoot = localPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if not localRoot then
+        return false
+    end
+    
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player ~= localPlayer and player.Character then
+            -- 检查距离
+            local targetRoot = player.Character:FindFirstChild("HumanoidRootPart")
+            if targetRoot then
+                local distance = (localRoot.Position - targetRoot.Position).Magnitude
+                if distance <= protectionSettings.detectionRange then
+                    -- 检查动画
+                    local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+                    if humanoid then
+                        local animator = humanoid:FindFirstChildOfClass("Animator")
+                        if animator then
+                            for _, track in pairs(animator:GetPlayingAnimationTracks()) do
+                                if track.IsPlaying then
+                                    local animation = track.Animation
+                                    if animation then
+                                        -- 提取动画ID
+                                        local animationIdStr = tostring(animation.AnimationId)
+                                        local animationId = animationIdStr:match("%d+")
+                                        
+                                        if animationId then
+                                            -- 检查是否是受保护的动作
+                                            for _, protectedId in ipairs(protectedAnimations) do
+                                                if animationId == protectedId then
+                                                    if protectionSettings.debugMode then
+                                                        print("[" .. os.date("%X") .. "] 检测到玩家 " .. player.Name .. " 播放受保护动作: " .. protectedId)
+                                                    end
+                                                    return true
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+    return false
+end
+
+-- 创建自动防护开关
+Toggle(AutoProtectTab, "启用自动防护", false, function(value)
+    autoProtectEnabled = value
+    
+    if value then
+        -- 启用自动防护
+        if protectConnection then
+            protectConnection:Disconnect()
+        end
+        
+        protectConnection = game:GetService("RunService").Heartbeat:Connect(function()
+            if autoProtectEnabled and checkForProtectedAnimations() then
+                virtualClick()
+            end
+        end)
+        
+        print("🛡️ 自动防护已启用")
+    else
+        -- 禁用自动防护
+        if protectConnection then
+            protectConnection:Disconnect()
+            protectConnection = nil
+        end
+        print("❌ 自动防护已禁用")
+    end
+end)
+
+-- 添加说明
+AutoProtectTab:Paragraph({
+    Title = "自动防护系统",
+    Desc = "当检测到附近玩家播放特定攻击动作时，自动点击鼠标左键进行防御",
+    Image = "shield",
+    ImageSize = 20,
+    Color = Color3.fromHex("#FF6B6B")
+})
+
+-- 显示受保护动作列表
+local animListText = "受保护动作ID列表：\n"
+for i, animId in ipairs(protectedAnimations) do
+    animListText = animListText .. "• " .. animId .. "\n"
+end
+
+AutoProtectTab:Paragraph({
+    Title = "防护动作清单",
+    Desc = animListText,
+    Image = "list",
+    ImageSize = 20,
+    Color = Color3.fromHex("#4ECDC4")
+})
+
+-- 设置区域
+AutoProtectTab:Paragraph({
+    Title = "防护设置",
+    Desc = "调整自动防护的参数",
+    Image = "settings",
+    ImageSize = 20,
+    Color = Color3.fromHex("#45B7D1")
+})
+
+-- 检测范围设置
+Input(AutoProtectTab, "检测范围(米)", "设置自动防护的检测范围", tostring(protectionSettings.detectionRange), "例如：50", function(value)
+    local numValue = tonumber(value)
+    if numValue and numValue > 0 then
+        protectionSettings.detectionRange = numValue
+        print("✅ 检测范围已设置为: " .. numValue .. "米")
+    else
+        warn("❌ 请输入有效的正数")
+    end
+end)
+
+-- 点击延迟设置
+Input(AutoProtectTab, "点击延迟(秒)", "设置检测到动作后的点击延迟", tostring(protectionSettings.clickDelay), "例如：0.1", function(value)
+    local numValue = tonumber(value)
+    if numValue and numValue >= 0 then
+        protectionSettings.clickDelay = numValue
+        print("✅ 点击延迟已设置为: " .. numValue .. "秒")
+    else
+        warn("❌ 请输入有效的数字")
+    end
+end)
+
+-- 冷却时间设置
+Input(AutoProtectTab, "冷却时间(秒)", "设置两次点击之间的最小间隔", tostring(protectionSettings.cooldown), "例如：0.5", function(value)
+    local numValue = tonumber(value)
+    if numValue and numValue >= 0.1 then
+        protectionSettings.cooldown = numValue
+        print("✅ 冷却时间已设置为: " .. numValue .. "秒")
+    else
+        warn("❌ 请输入大于等于0.1的数字")
+    end
+end)
+
+-- 调试模式开关
+Toggle(AutoProtectTab, "调试模式", false, function(value)
+    protectionSettings.debugMode = value
+    if value then
+        print("🔧 调试模式已启用")
+    else
+        print("🔧 调试模式已禁用")
+    end
+end)
+
+-- 测试按钮
+Button(AutoProtectTab, "测试防护功能", function()
+    virtualClick()
+    print("🧪 防护功能测试完成")
+end)
+
+-- 重新扫描按钮
+Button(AutoProtectTab, "重新扫描玩家", function()
+    print("🔍 重新扫描附近玩家...")
+    if autoProtectEnabled then
+        checkForProtectedAnimations()
+    end
+end)
+
+-- 状态显示
+local statusText = autoProtectEnabled and "🟢 运行中" or "🔴 已停止"
+AutoProtectTab:Paragraph({
+    Title = "系统状态",
+    Desc = statusText,
+    Image = "activity",
+    ImageSize = 20,
+    Color = autoProtectEnabled and Color3.fromHex("#00FF00") or Color3.fromHex("#FF0000")
+})
+
+-- 工具按钮
+Button(AutoProtectTab, "折叠UI", function()
+    Window:Close()
+end)
+
+-- 玩家连接事件处理
+game.Players.PlayerAdded:Connect(function(player)
+    if protectionSettings.debugMode then
+        print("👤 玩家加入: " .. player.Name)
+    end
+end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+    if protectionSettings.debugMode then
+        print("👤 玩家离开: " .. player.Name)
+    end
+end)
+
+print("✅ XION自动防护脚本加载完成")
