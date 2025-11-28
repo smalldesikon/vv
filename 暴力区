@@ -78,35 +78,39 @@ local protectedAnimations = {
 local protectionSettings = {
     detectionRange = 50,
     clickDelay = 0.1,
-    cooldown = 0.5,  -- 点击冷却时间
+    cooldown = 50,  -- 点击冷却时间改为50秒
     debugMode = false
 }
 
--- 虚拟鼠标点击函数（修复版）
-function virtualClick()
+-- 虚拟鼠标右键点击函数
+function virtualRightClick()
     local currentTime = tick()
     
     -- 检查冷却时间
     if currentTime - lastClickTime < protectionSettings.cooldown then
+        if protectionSettings.debugMode then
+            print("[" .. os.date("%X") .. "] 冷却中，剩余时间: " .. string.format("%.1f", protectionSettings.cooldown - (currentTime - lastClickTime)) .. "秒")
+        end
         return
     end
     
     lastClickTime = currentTime
     
-    -- 使用VirtualInputManager模拟鼠标点击
+    -- 使用VirtualInputManager模拟鼠标右键点击
     local virtualInputManager = game:GetService("VirtualInputManager")
     
-    -- 鼠标按下
-    virtualInputManager:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+    -- 鼠标右键按下 (按钮代码2代表右键)
+    virtualInputManager:SendMouseButtonEvent(0, 0, 2, true, game, 1)
     
     -- 短暂延迟
     wait(protectionSettings.clickDelay)
     
-    -- 鼠标释放
-    virtualInputManager:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+    -- 鼠标右键释放
+    virtualInputManager:SendMouseButtonEvent(0, 0, 2, false, game, 1)
     
     if protectionSettings.debugMode then
-        print("[" .. os.date("%X") .. "] 检测到受保护动作，已自动点击鼠标左键")
+        print("[" .. os.date("%X") .. "] 检测到受保护动作，已自动点击鼠标右键")
+        print("[" .. os.date("%X") .. "] 下次可点击时间: " .. os.date("%X", currentTime + protectionSettings.cooldown))
     end
 end
 
@@ -178,11 +182,12 @@ Toggle(AutoProtectTab, "启用自动防护", false, function(value)
         
         protectConnection = game:GetService("RunService").Heartbeat:Connect(function()
             if autoProtectEnabled and checkForProtectedAnimations() then
-                virtualClick()
+                virtualRightClick()
             end
         end)
         
-        print("🛡️ 自动防护已启用")
+        print("🛡️ 自动防护已启用 (右键模式)")
+        print("⏰ 冷却时间: " .. protectionSettings.cooldown .. "秒")
     else
         -- 禁用自动防护
         if protectConnection then
@@ -195,8 +200,8 @@ end)
 
 -- 添加说明
 AutoProtectTab:Paragraph({
-    Title = "自动防护系统",
-    Desc = "当检测到附近玩家播放特定攻击动作时，自动点击鼠标左键进行防御",
+    Title = "自动防护系统 - 右键模式",
+    Desc = "当检测到附近玩家播放特定攻击动作时，自动点击鼠标右键进行防御\n冷却时间: 50秒",
     Image = "shield",
     ImageSize = 20,
     Color = Color3.fromHex("#FF6B6B")
@@ -247,15 +252,11 @@ Input(AutoProtectTab, "点击延迟(秒)", "设置检测到动作后的点击延
     end
 end)
 
--- 冷却时间设置
-Input(AutoProtectTab, "冷却时间(秒)", "设置两次点击之间的最小间隔", tostring(protectionSettings.cooldown), "例如：0.5", function(value)
-    local numValue = tonumber(value)
-    if numValue and numValue >= 0.1 then
-        protectionSettings.cooldown = numValue
-        print("✅ 冷却时间已设置为: " .. numValue .. "秒")
-    else
-        warn("❌ 请输入大于等于0.1的数字")
-    end
+-- 冷却时间设置（固定为50秒，但保留输入框用于显示）
+Input(AutoProtectTab, "冷却时间(秒)", "冷却时间已固定为50秒", "50", "固定值: 50", function(value)
+    -- 冷却时间固定为50秒，不允许修改
+    protectionSettings.cooldown = 50
+    print("ℹ️ 冷却时间已固定为50秒，无法修改")
 end)
 
 -- 调试模式开关
@@ -268,10 +269,11 @@ Toggle(AutoProtectTab, "调试模式", false, function(value)
     end
 end)
 
--- 测试按钮
-Button(AutoProtectTab, "测试防护功能", function()
-    virtualClick()
-    print("🧪 防护功能测试完成")
+-- 测试按钮（右键测试）
+Button(AutoProtectTab, "测试右键功能", function()
+    virtualRightClick()
+    print("🧪 右键功能测试完成")
+    print("⏰ 下次可点击时间: " .. os.date("%X", lastClickTime + protectionSettings.cooldown))
 end)
 
 -- 重新扫描按钮
@@ -282,15 +284,37 @@ Button(AutoProtectTab, "重新扫描玩家", function()
     end
 end)
 
+-- 显示冷却状态
+local cooldownCheckConnection = game:GetService("RunService").Heartbeat:Connect(function()
+    if autoProtectEnabled then
+        local currentTime = tick()
+        local timeSinceLastClick = currentTime - lastClickTime
+        local remainingCooldown = math.max(0, protectionSettings.cooldown - timeSinceLastClick)
+        
+        if remainingCooldown > 0 then
+            -- 更新状态显示
+            local statusText = string.format("🟡 冷却中 (%.1f秒)", remainingCooldown)
+            -- 这里可以添加状态显示更新逻辑
+        else
+            -- 更新状态显示
+            local statusText = "🟢 就绪"
+            -- 这里可以添加状态显示更新逻辑
+        end
+    end
+end)
+
 -- 状态显示
-local statusText = autoProtectEnabled and "🟢 运行中" or "🔴 已停止"
-AutoProtectTab:Paragraph({
-    Title = "系统状态",
-    Desc = statusText,
-    Image = "activity",
-    ImageSize = 20,
-    Color = autoProtectEnabled and Color3.fromHex("#00FF00") or Color3.fromHex("#FF0000")
-})
+local function updateStatusDisplay()
+    local currentTime = tick()
+    local timeSinceLastClick = currentTime - lastClickTime
+    local remainingCooldown = math.max(0, protectionSettings.cooldown - timeSinceLastClick)
+    
+    if remainingCooldown > 0 then
+        return string.format("🟡 冷却中 (%.1f秒)", remainingCooldown)
+    else
+        return "🟢 就绪"
+    end
+end
 
 -- 工具按钮
 Button(AutoProtectTab, "折叠UI", function()
@@ -310,4 +334,5 @@ game.Players.PlayerRemoving:Connect(function(player)
     end
 end)
 
-print("✅ XION自动防护脚本加载完成")
+print("✅ XION自动防护脚本加载完成 (右键模式)")
+print("⏰ 冷却时间: 50秒")
